@@ -1,0 +1,7 @@
+{
+  "@@locale": "de",
+  "appTitle": "Sport Events Kickstart",
+  "loginButton": "Anmelden",
+  "triggerErrorButton": "Fehler auslösen",
+  "helloWorld": "Hallo Welt!"
+}

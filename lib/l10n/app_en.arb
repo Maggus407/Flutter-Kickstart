@@ -1,0 +1,10 @@
+{
+  "@@locale": "en",
+  "appTitle": "Sport Events Kickstart",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "loginButton": "Login",
+  "triggerErrorButton": "Trigger Error",
+  "helloWorld": "Hello World!"
+}

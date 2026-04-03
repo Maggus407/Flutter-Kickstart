@@ -1,0 +1,5 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Führt dart_pre_commit aus, was Linter und Formatierung prüft.
+dart pub run dart_pre_commit
