@@ -7,8 +7,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'core/services/supabase/supabase_config.dart';
 import 'l10n/app_localizations.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -27,7 +25,8 @@ Future<void> main() async {
     },
     // Eure App in Sentry und ProviderScope wrappen!
     appRunner: () => runApp(
-      const ProviderScope( // <- Das ist neu für Riverpod!
+      const ProviderScope(
+        // <- Das ist neu für Riverpod!
         child: MyApp(),
       ),
     ),
@@ -53,7 +52,7 @@ class MyApp extends StatelessWidget {
       ],
       // Das dynamische Title wird oft so gesetzt:
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      
+
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -84,7 +83,7 @@ class HomeScreen extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          
+
           Expanded(
             child: Center(
               child: Text(
@@ -93,7 +92,7 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
           ),
-          
+
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
