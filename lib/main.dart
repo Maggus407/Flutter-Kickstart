@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'core/services/supabase/supabase_config.dart';
@@ -10,25 +9,17 @@ import 'l10n/app_localizations.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lade Umgebungsvariablen
   await dotenv.load(fileName: ".env");
 
-  // Supabase initialisieren
   await initializeSupabase();
 
-  // Sentry initialisieren
   await SentryFlutter.init(
     (options) {
-      // Sentry DSN aus der .env-Datei laden
       options.dsn = dotenv.env['SENTRY_DSN'] ?? '';
       options.tracesSampleRate = 1.0; // Sample Rate für Performance Monitoring
     },
-    // Eure App in Sentry und ProviderScope wrappen!
     appRunner: () => runApp(
-      const ProviderScope(
-        // <- Das ist neu für Riverpod!
-        child: MyApp(),
-      ),
+      const MyApp(),
     ),
   );
 }
@@ -39,7 +30,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Die Übersetzungs-Einrichtung (i18n):
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -50,7 +40,7 @@ class MyApp extends StatelessWidget {
         Locale('de'), // Deutsch (als Standard)
         Locale('en'), // Englisch
       ],
-      // Das dynamische Title wird oft so gesetzt:
+
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
 
       theme: ThemeData(
@@ -62,13 +52,11 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Statt einem normalen StatelessWidget nutzen wir hier das ConsumerWidget von Riverpod
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // 1. Lass uns die Übersetzungen laden
+  Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
